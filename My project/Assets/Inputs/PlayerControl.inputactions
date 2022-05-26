@@ -24,6 +24,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Resurrect",
+                    "type": "Button",
+                    "id": "9efa5b28-683b-4261-b7bc-07f773170e82",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Menu",
                     "type": "Button",
                     "id": "5f3610fb-cdcb-49dc-bbc9-7b2db84ee2ab",
@@ -108,6 +117,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8ef8e42f-4d54-4699-b4f5-f49fc4dcba9b",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Resurrect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

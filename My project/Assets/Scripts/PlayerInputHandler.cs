@@ -9,7 +9,9 @@ public class PlayerInputHandler : MonoBehaviour
 
     public Vector2 move;
     public bool cast;
+    public bool resurrect;
     public static event Action casting;
+    public static event Action resurrecting;
 
     public bool menu;
     public static event Action openingMenu;
@@ -28,5 +30,11 @@ public class PlayerInputHandler : MonoBehaviour
     {
         menu = !menu;
         openingMenu?.Invoke(); //Ativa o evento de abrir o menu apertando ESC
+    }
+
+    public void OnResurrect(InputValue value)
+    {
+        resurrect = value.isPressed;
+        resurrecting?.Invoke();
     }
 }
