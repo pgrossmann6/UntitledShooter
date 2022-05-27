@@ -11,31 +11,17 @@ public class Grave : MonoBehaviour
     {
         selected = false;
         zombieRef = Resources.Load("Zombie");
-        PlayerInputHandler.resurrecting += SpawnZombie;
 
     }
 
     void OnDisable()
     {
-        PlayerInputHandler.resurrecting -= SpawnZombie;
 
     }
 
-    private void SpawnZombie()
+    public void SpawnZombie()
     {
-        if (selected == true)
-        {
-            GameObject Zombie = (GameObject)Instantiate(zombieRef, transform.position, Quaternion.identity);
-            Destroy(gameObject);
-        }
-        
-    }
-    private void OnMouseEnter()
-    {
-        selected = true;
-    }
-    private void OnMouseExit()
-    {
-        selected = false;
+        GameObject Zombie = (GameObject)Instantiate(zombieRef, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 }

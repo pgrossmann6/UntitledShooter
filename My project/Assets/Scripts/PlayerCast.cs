@@ -5,11 +5,19 @@ using UnityEngine;
 public class PlayerCast : MonoBehaviour
 {
     [SerializeField] private GameObject spellSpawnPosition;
+    [SerializeField] private Animator _animator;
+    private Grave _grave;
+
     Object spellRef;
     // Start is called before the first frame update
     void Start()
     {
+        _animator = GetComponentInChildren<Animator>();
+
+
         PlayerInputHandler.casting += CastSpell;
+        PlayerInputHandler.resurrecting += Resurrecting;
+
 
         spellRef = Resources.Load("Spell");
     }
@@ -17,6 +25,8 @@ public class PlayerCast : MonoBehaviour
     void OnDisable()
     {
         PlayerInputHandler.casting -= CastSpell;
+        PlayerInputHandler.resurrecting -= Resurrecting;
+
     }
 
 
@@ -28,7 +38,44 @@ public class PlayerCast : MonoBehaviour
 
     private void CastSpell()
     {
-        
+        if(_animator.GetBool("CanCast") == false) {return;}
+
+        _animator.SetTrigger("Cast");
+        _animator.SetBool("CanCast", false);
+        //GameObject spell = (GameObject)Instantiate(spellRef, spellSpawnPosition.transform.position, transform.rotation);
+    }
+
+    public void SpawnSpell()
+    {
         GameObject spell = (GameObject)Instantiate(spellRef, spellSpawnPosition.transform.position, transform.rotation);
+    }
+
+    private void Resurrecting()
+    {
+        if(_animator.GetBool("CanCast") == false) {return;}
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            Debug.Log(hit.transform.name);
+            hit.transform.gameObject.TryGetComponent<Grave>(out _grave);
+            if (_grave != null)
+            {
+                //_grave = grave;
+                //grave.SpawnZombie();
+                _animator.SetTrigger("Resurrection");
+
+            }
+        }
+    }
+
+    public void ResurrectGrave()
+    {
+        if (_grave != null)
+        {
+            _grave.SpawnZombie();
+            _grave = null;
+
+        }
     }
 }

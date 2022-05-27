@@ -5,7 +5,10 @@ using UnityEngine;
 public class PlayerMovements : MonoBehaviour
 {
     [SerializeField] private PlayerInputHandler _inputs;
+    
     [SerializeField] private bool is_playable;
+
+    
 
     private Camera mainCamera;
     // Start is called before the first frame update
