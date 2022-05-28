@@ -132,6 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 7034066077990590648}
   destroyAfterSeconds: 2
+  magic_power: 0
   launchForce: 30
 --- !u!54 &7034066077990590648
 Rigidbody:

@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour, IDamageable
 {
+    public float strenght;
+    public float maxhealth;
+
+    public float current_health;
+
     private NavMeshAI AI;
     Object grave;
+    private Animator _anim;
+
     void Start()
     {
         grave = Resources.Load("Grave");
@@ -19,22 +26,30 @@ public class EnemyAI : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
-
+        /*
         if (AI.target != null)
         {
-            //Vector3 lookPosition = AI.target.position;
-            //lookPosition.y = transform.position.y;
-            //Vector3 lookDirection = (lookPosition - transform.position).normalized;
-            //transform.forward = Vector3.Lerp(transform.forward, lookDirection, Time.deltaTime * 20f);
+            if (!AI.navMeshAgent.isStopped)
+            {
+                if (Vector3.Distance(transform.position, AI.target.transform.position) <= 2)
+                {
+                    //close distance
+                    AI.navMeshAgent.SetDestination(transform.position);
+                    //AI.target = null;
+                    _anim.SetTrigger("Attack");
+                }
+            }
         }
+        */
     }
 
     private IEnumerator FindTarget()
     {
-        AI.target = GameObject.FindGameObjectWithTag("Player").transform;
 
         while(this.enabled)
         {
+            AI.SetTarget(GameObject.FindGameObjectWithTag("Player").transform);
+
             Collider[] colliderArray = Physics.OverlapSphere(transform.position, 20f);
             foreach (Collider collider in colliderArray)
             {
@@ -43,28 +58,31 @@ public class EnemyAI : MonoBehaviour, IDamageable
                 {
                     if (AI.target == null)
                     {
-                        AI.target = collider.transform;
-
+                        AI.SetTarget(collider.transform);
                     }
                     else if (Vector3.Distance(collider.transform.position, transform.position) < Vector3.Distance(AI.target.position, transform.position))
                     {
-                        AI.target = collider.transform;
+                        AI.SetTarget(collider.transform);
                     }
                 }
 
             }
-            Debug.Log("foi");
 
             yield return new WaitForSeconds(1);
         }
         
-        FindTarget();
+        //FindTarget();
 
     }
 
-    public void DealDamage(float d)
+    public void Damage(float d)
     {
         GameObject EnemyGrave = (GameObject)Instantiate(grave, transform.position, Quaternion.identity);
         Destroy(gameObject);
+    }
+
+    public void Attack( IDamageable opponent)
+    {
+        opponent.Damage(strenght);
     }
 }

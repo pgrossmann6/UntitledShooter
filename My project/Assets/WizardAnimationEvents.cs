@@ -20,6 +20,7 @@ public class WizardAnimationEvents : MonoBehaviour
     {
         //Debug.Log("FUNCIONOU");
         Player.GetComponent<PlayerCast>().SpawnSpell();
+        
     }
 
     public void ResurrectGrave()

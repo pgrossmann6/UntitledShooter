@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterMovements : MonoBehaviour, IMovable
+public class CharacterMovements : MonoBehaviour, IMovable, IDamageable
 {
     [SerializeField] private float speed;
     [SerializeField] private Animator _animator;
@@ -43,5 +43,10 @@ public class CharacterMovements : MonoBehaviour, IMovable
         _cc.Move(VelVect3 * (speed * Time.deltaTime));
         ccSpeed =  _cc.velocity.magnitude;
         _animator.SetFloat("Speed", _cc.velocity.magnitude);
+    }
+
+    public void Damage(float damage)
+    {
+        Debug.Log(damage);
     }
 }

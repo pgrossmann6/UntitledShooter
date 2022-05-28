@@ -8,6 +8,8 @@ public class PlayerCast : MonoBehaviour
     [SerializeField] private Animator _animator;
     private Grave _grave;
 
+    public float magicDamage;
+
     Object spellRef;
     // Start is called before the first frame update
     void Start()
@@ -47,7 +49,9 @@ public class PlayerCast : MonoBehaviour
 
     public void SpawnSpell()
     {
+        //Debug.Log("FOOOII??????");
         GameObject spell = (GameObject)Instantiate(spellRef, spellSpawnPosition.transform.position, transform.rotation);
+        spell.GetComponent<Projectile>().magic_power = magicDamage;
     }
 
     private void Resurrecting()

@@ -6,6 +6,7 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float destroyAfterSeconds = 5f;
+    public float magic_power;
     [SerializeField] private float launchForce = 10f;
     // Start is called before the first frame update
     void Start()
@@ -19,13 +20,17 @@ public class Projectile : MonoBehaviour
     {
         
     }
+    public void OnDisable()
+    {
+
+    }
 
     public void OnTriggerEnter(Collider other)
     {
         other.TryGetComponent<IDamageable>(out IDamageable enemy);
-        if (enemy != null)
+        if (enemy != null && other.tag == "Enemy")
         {
-            enemy.DealDamage(1f);
+            enemy.Damage(magic_power);
             Destroy(gameObject);
         }
     }
