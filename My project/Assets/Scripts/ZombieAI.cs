@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ZombieAI : MonoBehaviour
+public class ZombieAI : MonoBehaviour, IKillable
 {
     private NavMeshAI AI;
     public float strenght;
@@ -15,18 +15,6 @@ public class ZombieAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if (AI.target == null)
-        {
-            FindTarget();
-        }
-        else
-        {
-            Vector3 lookPosition = AI.target.position;
-            lookPosition.y = transform.position.y;
-            Vector3 lookDirection = (lookPosition - transform.position).normalized;
-            transform.forward = Vector3.Lerp(transform.forward, lookDirection, Time.deltaTime * 20f);
-        }
-        */
     }
 
     private IEnumerator FindTarget()
@@ -61,5 +49,9 @@ public class ZombieAI : MonoBehaviour
     public void Attack( IDamageable opponent)
     {
         opponent.Damage(strenght);
+    }
+    public void Kill()
+    {
+        Destroy(gameObject);
     }
 }

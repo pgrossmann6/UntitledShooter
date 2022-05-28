@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterMovements : MonoBehaviour, IMovable, IDamageable
+public class CharacterMovements : MonoBehaviour, IMovable, IKillable
 {
     [SerializeField] private float speed;
     [SerializeField] private Animator _animator;
@@ -17,13 +17,17 @@ public class CharacterMovements : MonoBehaviour, IMovable, IDamageable
     {
         _cc = GetComponent<CharacterController>();
         _animator = GetComponentInChildren<Animator>();
-
     }
 
     // Update is called once per frame
     void Update()
     {
         Move();
+    }
+
+    public void Kill()
+    {
+        GetComponent<CharacterStats>().SetMaxHealth(10);
     }
 
     public void SetVelocity(Vector3 velocityVector)
@@ -43,10 +47,5 @@ public class CharacterMovements : MonoBehaviour, IMovable, IDamageable
         _cc.Move(VelVect3 * (speed * Time.deltaTime));
         ccSpeed =  _cc.velocity.magnitude;
         _animator.SetFloat("Speed", _cc.velocity.magnitude);
-    }
-
-    public void Damage(float damage)
-    {
-        Debug.Log(damage);
     }
 }

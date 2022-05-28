@@ -8,50 +8,34 @@ public class PlayerCast : MonoBehaviour
     [SerializeField] private Animator _animator;
     private Grave _grave;
 
-    public float magicDamage;
-
     Object spellRef;
     // Start is called before the first frame update
     void Start()
     {
         _animator = GetComponentInChildren<Animator>();
-
+        spellRef = Resources.Load("Spell");
 
         PlayerInputHandler.casting += CastSpell;
         PlayerInputHandler.resurrecting += Resurrecting;
-
-
-        spellRef = Resources.Load("Spell");
     }
 
     void OnDisable()
     {
         PlayerInputHandler.casting -= CastSpell;
         PlayerInputHandler.resurrecting -= Resurrecting;
-
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void CastSpell()
     {
         if(_animator.GetBool("CanCast") == false) {return;}
-
         _animator.SetTrigger("Cast");
         _animator.SetBool("CanCast", false);
-        //GameObject spell = (GameObject)Instantiate(spellRef, spellSpawnPosition.transform.position, transform.rotation);
     }
 
     public void SpawnSpell()
     {
-        //Debug.Log("FOOOII??????");
         GameObject spell = (GameObject)Instantiate(spellRef, spellSpawnPosition.transform.position, transform.rotation);
-        spell.GetComponent<Projectile>().magic_power = magicDamage;
+        spell.GetComponent<Projectile>().magic_power = GetComponent<CharacterStats>().power;
     }
 
     private void Resurrecting()
@@ -65,10 +49,7 @@ public class PlayerCast : MonoBehaviour
             hit.transform.gameObject.TryGetComponent<Grave>(out _grave);
             if (_grave != null)
             {
-                //_grave = grave;
-                //grave.SpawnZombie();
                 _animator.SetTrigger("Resurrection");
-
             }
         }
     }
@@ -79,7 +60,6 @@ public class PlayerCast : MonoBehaviour
         {
             _grave.SpawnZombie();
             _grave = null;
-
         }
     }
 }

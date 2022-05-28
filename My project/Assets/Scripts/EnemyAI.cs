@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAI : MonoBehaviour, IDamageable
+public class EnemyAI : MonoBehaviour,IKillable
 {
     public float strenght;
     public float maxhealth;
@@ -74,11 +74,15 @@ public class EnemyAI : MonoBehaviour, IDamageable
         //FindTarget();
 
     }
+    public void OnDestroy()
+    {
+    }
 
-    public void Damage(float d)
+    public void Kill()
     {
         GameObject EnemyGrave = (GameObject)Instantiate(grave, transform.position, Quaternion.identity);
         Destroy(gameObject);
+
     }
 
     public void Attack( IDamageable opponent)

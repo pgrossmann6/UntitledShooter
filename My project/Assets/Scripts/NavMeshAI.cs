@@ -15,7 +15,7 @@ public class NavMeshAI : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         _anim = GetComponentInChildren<Animator>();
         state = "Idle";
-
+        navMeshAgent.speed = GetComponent<CharacterStats>().speed;
     }
 
     // Update is called once per frame
@@ -30,19 +30,10 @@ public class NavMeshAI : MonoBehaviour
         {
             if (navMeshAgent.remainingDistance < navMeshAgent.stoppingDistance)
             {
-                
                 _anim.SetTrigger("Attack");
                 state = "Attacking";
                 navMeshAgent.destination = transform.position;
                 _anim.SetBool("is_running", false);
-
-                //LookAt(target);
-                //Vector3 lookPosition = target.position;
-                //lookPosition.y = transform.position.y;
-                //Vector3 lookDirection = (lookPosition - transform.position).normalized;
-                //transform.forward = Vector3.Lerp(transform.forward, lookDirection, Time.deltaTime * 20f);
-        
-
             }
         }
         if (state == "Attacking")
@@ -55,10 +46,6 @@ public class NavMeshAI : MonoBehaviour
             _anim.SetBool("is_running", true);
 
         }
-        
-
-        //navMeshAgent.destination = target.position;
-        //navMeshAgent.
     }
 
     public void SetTarget(Transform newTarget)
@@ -69,7 +56,6 @@ public class NavMeshAI : MonoBehaviour
             state = "Chasing";
             navMeshAgent.destination = target.position;
             _anim.SetBool("is_running", true);
-
         }
     }
 
