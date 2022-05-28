@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour,IKillable
 {
-    public float strenght;
-    public float maxhealth;
-
-    public float current_health;
 
     private NavMeshAI AI;
     Object grave;
@@ -87,6 +83,6 @@ public class EnemyAI : MonoBehaviour,IKillable
 
     public void Attack( IDamageable opponent)
     {
-        opponent.Damage(strenght);
+        opponent.Damage(GetComponent<CharacterStats>().power);
     }
 }
