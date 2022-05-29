@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2342925975792518147}
   - component: {fileID: 2342925975793649347}
   - component: {fileID: 2342925975791458308}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Skull
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 2500769998056841598}
   - component: {fileID: 2500769998056038750}
   - component: {fileID: 2500769998054941598}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Rock_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -193,7 +193,7 @@ GameObject:
   - component: {fileID: -1887161335193859460}
   - component: {fileID: 7702169871636728206}
   - component: {fileID: 5058679240042462897}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Grave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 7583640148388637859}
   - component: {fileID: 7583640148387638883}
   - component: {fileID: 7583640148389900452}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -10,6 +10,8 @@ public class ZombieAI : MonoBehaviour, IKillable
     {
         AI = GetComponent<NavMeshAI>();
         StartCoroutine("FindTarget");
+        StartCoroutine("Wither");
+
     }
 
     // Update is called once per frame
@@ -24,7 +26,7 @@ public class ZombieAI : MonoBehaviour, IKillable
             Collider[] colliderArray = Physics.OverlapSphere(transform.position, 20f);
             foreach (Collider collider in colliderArray)
             {
-                Debug.Log(collider.name);
+                //Debug.Log(collider.name);
                 if (collider.tag =="Enemy")
                 {
                     
@@ -53,5 +55,13 @@ public class ZombieAI : MonoBehaviour, IKillable
     public void Kill()
     {
         Destroy(gameObject);
+    }
+    private IEnumerator Wither()
+    {
+        yield return new WaitForSeconds(2);
+        GetComponent<CharacterStats>().Damage(1f);
+        Debug.Log("TOMOU");
+        StartCoroutine("Wither");
+
     }
 }

@@ -6,6 +6,7 @@ public class PlayerCast : MonoBehaviour
 {
     [SerializeField] private GameObject spellSpawnPosition;
     [SerializeField] private Animator _animator;
+    public LayerMask layerGrave;
     private Grave _grave;
 
     Object spellRef;
@@ -43,7 +44,7 @@ public class PlayerCast : MonoBehaviour
         if(_animator.GetBool("CanCast") == false) {return;}
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        if (Physics.Raycast(ray, out RaycastHit hit, layerGrave))
         {
             Debug.Log(hit.transform.name);
             hit.transform.gameObject.TryGetComponent<Grave>(out _grave);
