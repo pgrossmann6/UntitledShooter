@@ -133,7 +133,8 @@ MonoBehaviour:
   rb: {fileID: 7034066077990590648}
   destroyAfterSeconds: 2
   magic_power: 0
-  launchForce: 30
+  launchForce: 10
+  isPiercing: 0
 --- !u!54 &7034066077990590648
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class CharacterMovements : MonoBehaviour, IMovable, IKillable
 {
-    [SerializeField] private float speed;
+    [SerializeField] public float speed;
     [SerializeField] private Animator _animator;
+    [SerializeField] private GameObject GameOverPanel;
 
     public float ccSpeed;
 
@@ -28,6 +29,8 @@ public class CharacterMovements : MonoBehaviour, IMovable, IKillable
     public void Kill()
     {
         GetComponent<CharacterStats>().SetMaxHealth(10);
+        Time.timeScale = 0f;
+        GameOverPanel.SetActive(true);
     }
 
     public void SetVelocity(Vector3 velocityVector)
@@ -47,5 +50,10 @@ public class CharacterMovements : MonoBehaviour, IMovable, IKillable
         _cc.Move(VelVect3 * (speed * Time.deltaTime));
         ccSpeed =  _cc.velocity.magnitude;
         _animator.SetFloat("Speed", _cc.velocity.magnitude);
+    }
+    
+    public void SetSpeed(float _newSpeed)
+    {
+        speed = _newSpeed;
     }
 }

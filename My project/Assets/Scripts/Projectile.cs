@@ -7,11 +7,13 @@ public class Projectile : MonoBehaviour
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float destroyAfterSeconds = 5f;
     public float magic_power;
-    [SerializeField] private float launchForce = 10f;
+    [SerializeField] public float launchForce = 10f;
+    [SerializeField] public bool isPiercing = false;
     // Start is called before the first frame update
     void Start()
     {
-        rb.velocity = transform.forward * launchForce;
+        rb.velocity = transform.forward * Wizard.SpellSpeed;
+        transform.localScale = new Vector3(0.5f, 0.5f, 0.5f) * Wizard.SpellSize;
         Destroy(gameObject, destroyAfterSeconds);
     }
 
@@ -31,7 +33,14 @@ public class Projectile : MonoBehaviour
         if (enemy != null && other.tag == "Enemy")
         {
             enemy.Damage(magic_power);
-            Destroy(gameObject);
+            if (!isPiercing) { Destroy(gameObject);}
         }
     }
+/*
+    public void SetSpeed(float _force)
+    {
+        Debug.Log(_force);
+        rb.velocity = transform.forward * _force;
+
+    }*/
 }

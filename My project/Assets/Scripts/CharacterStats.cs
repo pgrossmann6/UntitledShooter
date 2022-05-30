@@ -16,6 +16,7 @@ public class CharacterStats : MonoBehaviour, IDamageable
     {  
         currentHealth = maxHealth;
         hpBar.SetMaxHealth(maxHealth);
+        
     }
 
     // Update is called once per frame
@@ -49,5 +50,16 @@ public class CharacterStats : MonoBehaviour, IDamageable
         {
             character.Kill();
         }
+    }
+
+    public void SetSpeed(float newSpeed)
+    {
+        speed = newSpeed;
+        GetComponent<IMovable>().SetSpeed(speed);
+    }
+
+    public void SetPower(float _newPower)
+    {
+        power = _newPower;
     }
 }

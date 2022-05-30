@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NavMeshAI : MonoBehaviour
+public class NavMeshAI : MonoBehaviour, IMovable
 {
     [SerializeField] public Transform target;
     public NavMeshAgent navMeshAgent;
@@ -21,7 +21,6 @@ public class NavMeshAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
 
         if(target == null) {return;}
         if (navMeshAgent == null) {return;}
@@ -39,13 +38,20 @@ public class NavMeshAI : MonoBehaviour
         if (state == "Attacking")
         {
             LookAt(target);
+            FollowTarget();
         }
+
         if (state == "Chasing")
         {
             navMeshAgent.destination = target.position;
             _anim.SetBool("is_running", true);
-
         }
+        if(navMeshAgent.remainingDistance < navMeshAgent.stoppingDistance)
+        {
+            _anim.SetBool("is_running", false);
+        }
+        
+
     }
 
     public void SetTarget(Transform newTarget)
@@ -53,9 +59,10 @@ public class NavMeshAI : MonoBehaviour
         if (state == "Idle" || state == "Chasing")
         {
             target = newTarget;
-            state = "Chasing";
-            navMeshAgent.destination = target.position;
-            _anim.SetBool("is_running", true);
+            FollowTarget();
+            //state = "Chasing";
+            //navMeshAgent.destination = target.position;
+            //_anim.SetBool("is_running", true);
         }
     }
 
@@ -64,12 +71,22 @@ public class NavMeshAI : MonoBehaviour
         if (target == null)
         {
             state = "Idle";
+            //_anim.SetBool("is_running", false);
+
         }
         else
         {
-            state = "Chasing";
-            navMeshAgent.destination = target.position;
-            _anim.SetBool("is_running", true);
+            if (navMeshAgent.isOnNavMesh)
+            {
+                state = "Chasing";
+                navMeshAgent.destination = target.position;
+                _anim.SetBool("is_running", true);
+            }
+            else
+            {
+                Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            }
+            
 
         }
     }
@@ -79,6 +96,18 @@ public class NavMeshAI : MonoBehaviour
         lookPosition.y = transform.position.y;
         Vector3 lookDirection = (lookPosition - transform.position).normalized;
         transform.forward = Vector3.Lerp(transform.forward, lookDirection, Time.deltaTime * 20f);
+    }
+
+    public void SetVelocity(Vector3 roamingPosition)
+    {
+        //randomPos = roamingPosition;
+        //state = "Wandering";
+
+    }
+    public void SetSpeed(float _speed)
+    {
+        navMeshAgent.speed = _speed;
+
     }
 }
 

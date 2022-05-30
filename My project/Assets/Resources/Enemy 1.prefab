@@ -1229,6 +1229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97f8516c6b45dce4698bc110fec011a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xpOnDeath: 2
 --- !u!114 &2986040480286734372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1241,9 +1242,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b053e5f50ccea414796697996926cf32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  maxHealth: 4
   currentHealth: 0
-  power: 1
+  power: 2
   speed: 11
   hpBar: {fileID: 4975247365028296062}
   dropPrefab: {fileID: 0}

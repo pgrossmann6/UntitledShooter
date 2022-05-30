@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class EnemyAI : MonoBehaviour,IKillable
 {
 
     private NavMeshAI AI;
-    Object grave;
+    UnityEngine.Object grave;
     private Animator _anim;
+    [SerializeField] private int xpOnDeath;
+
+    public static event Action Died;
+    public static event Action <int> OnDeath;
 
     void Start()
     {
@@ -22,21 +27,6 @@ public class EnemyAI : MonoBehaviour,IKillable
     // Update is called once per frame
     void Update()
     {
-        /*
-        if (AI.target != null)
-        {
-            if (!AI.navMeshAgent.isStopped)
-            {
-                if (Vector3.Distance(transform.position, AI.target.transform.position) <= 2)
-                {
-                    //close distance
-                    AI.navMeshAgent.SetDestination(transform.position);
-                    //AI.target = null;
-                    _anim.SetTrigger("Attack");
-                }
-            }
-        }
-        */
     }
 
     private IEnumerator FindTarget()
@@ -72,12 +62,14 @@ public class EnemyAI : MonoBehaviour,IKillable
     }
     public void OnDestroy()
     {
+        OnDeath?.Invoke(xpOnDeath);
     }
 
     public void Kill()
     {
         GameObject EnemyGrave = (GameObject)Instantiate(grave, transform.position, Quaternion.identity);
         Destroy(gameObject);
+        Died?.Invoke();
 
     }
 
