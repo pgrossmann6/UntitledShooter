@@ -10,6 +10,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private int EnemiesActives;
     
     public GameObject[] enemies;
+
+    private int maxIndex;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +20,7 @@ public class EnemySpawner : MonoBehaviour
 
         EnemiesActives = 0;
         EnemyAI.Died += RemoveEnemy;
+        maxIndex = 1;
 
         //enemie = Resources.Load("")
 
@@ -37,10 +40,16 @@ public class EnemySpawner : MonoBehaviour
         while (difficulty < 8)
         {
             difficulty++;
+            if (difficulty == 4) maxIndex = 2;
+            if (difficulty == 5) maxIndex = 3;
+            if (difficulty == 6) maxIndex = 4;
+            if (difficulty == 7) maxIndex = 5;
             //Debug.Log(difficulty);
-            yield return new WaitForSeconds(40); 
+            yield return new WaitForSeconds(60); 
             
         }
+        
+
     }
 
     private IEnumerator SpawnEnemies()
@@ -50,7 +59,9 @@ public class EnemySpawner : MonoBehaviour
         {
             if (Random.Range(0, 10) < difficulty+1 && (EnemiesActives < difficulty+1))
             {
-                int index = Random.Range(0, enemies.Length);
+                //int index = Random.Range(0, enemies.Length);
+                int index = Random.Range(0, maxIndex);
+
                 Instantiate(enemies[index], spawnerPositions[i].position, Quaternion.identity);
                 //Debug.Log(i);
                 EnemiesActives++;

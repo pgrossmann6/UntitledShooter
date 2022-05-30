@@ -80,6 +80,13 @@ public class Wizard : MonoBehaviour
 
     private void Start()
     {
+        SpellSpeed = 10;
+        SpellSize = 1;
+        ZombiePower = 2;
+        ZombieSpeed = 6;
+        ZombieHealth = 10;
+        ZombieDecay = 1;
+
         //Debug.Log($"{WizDamageLv}");
         XP_slider.value = 0;
         XP_slider.maxValue = (level < xpTolevelUp.Length-1)? xpTolevelUp[level]: 20;

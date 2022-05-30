@@ -13655,11 +13655,13 @@ MonoBehaviour:
   - {fileID: 954202301}
   - {fileID: 1679256250}
   - {fileID: 290578004}
-  difficulty: 1
+  difficulty: 2
   EnemiesActives: 0
   enemies:
   - {fileID: 4832766742510249957, guid: 3ac904b157279c447b4f33e59de83a3b, type: 3}
   - {fileID: 4832766742510249957, guid: 3003eebf5fe31f043beeeca6c514a84d, type: 3}
+  - {fileID: 4832766742510249957, guid: 09625002509ea5143b9c5cd9c66aab99, type: 3}
+  - {fileID: 4832766742510249957, guid: 7a755e5d56c0c6445802b9d4335b159a, type: 3}
 --- !u!1 &1818053107
 GameObject:
   m_ObjectHideFlags: 0
